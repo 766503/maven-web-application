@@ -34,7 +34,7 @@ pipeline
         {
             steps()
             {
-                sh 'docker build -t 290109/devops-training:${buildNumber} .'
+                sh 'docker build -t 290109/maven_login:${buildNumber} .'
             }
         }
 
@@ -46,7 +46,7 @@ pipeline
                 {
                     sh 'docker login -u 766503 -p ${Docker_Hub_Password}'
                 }
-                sh 'docker push 290109/devops-training:${buildNumber}'
+                sh 'docker push 290109/maven_login:${buildNumber}'
             }
         }
 
@@ -54,7 +54,7 @@ pipeline
         {
             steps()
             {
-                sh 'docker rmi -f 290109/devops-training:${buildNumber}'
+                sh 'docker rmi -f 290109/maven_login:${buildNumber}'
             }
         }
 
@@ -66,7 +66,7 @@ pipeline
 
                 {
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@54.226.250.42 docker rm -f mavenwebapplication || true"
-                    sh "ssh -o StrictHostKeyChecking=no ubuntu@54.226.250.42 docker run -d --name mavenwebapplication -p 8080:8080 290109/devops-training:${buildNumber}"
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@54.226.250.42 docker run -d --name mavenwebapplication -p 8080:8080 290109/maven_login:${buildNumber}"
                 }
             }
         }
